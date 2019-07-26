@@ -19,3 +19,5 @@ app.disable("etag");
 
 //Routes
 app.use("/appointments", appointmentsRouter);
+
+module.exports = app;
