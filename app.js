@@ -9,10 +9,14 @@ const app = express();
 require("dotenv/config");
 
 //Middlwares
-app.use(cors());
-app.use(morgan("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  [
+    cors(),
+    process.env.NODE_ENV !== "test" && morgan("dev"),
+    bodyParser.json(),
+    bodyParser.urlencoded({ extended: true })
+  ].filter(Boolean)
+);
 
 //disable caching
 app.disable("etag");
