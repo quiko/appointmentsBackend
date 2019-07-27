@@ -8,47 +8,47 @@ const Appointment = require("../models/Appointment");
 let mongoServer;
 
 /**
- * run before all tests
- */
-beforeAll(async done => {
-  /**
-   * Will spin up a new mongo server
-   */
-  mongoServer = new MongoMemoryServer();
-  const mongoUri = await mongoServer.getConnectionString();
-
-  /**
-   * Connect to fake server
-   */
-  await mongoose.connect(mongoUri, { useNewUrlParser: true });
-
-  /**
-   * Inform Jest that before step is done
-   */
-  done();
-});
-
-/**
- * Run after all tests are done
- */
-afterAll(async done => {
-  /**
-   * Disconnect Mongoose from server
-   */
-  await mongoose.disconnect();
-  /**
-   * Stop the dev server
-   */
-  await mongoServer.stop();
-  done();
-});
-
-/**
  * describe are test suite
  *
  * this suite will be first so we have something to delete and return
  */
 describe("POST /api/new", () => {
+  /**
+   * run before all tests
+   */
+  beforeAll(async done => {
+    /**
+     * Will spin up a new mongo server
+     */
+    mongoServer = new MongoMemoryServer();
+    const mongoUri = await mongoServer.getConnectionString();
+
+    /**
+     * Connect to fake server
+     */
+    await mongoose.connect(mongoUri, { useNewUrlParser: true });
+
+    /**
+     * Inform Jest that before step is done
+     */
+    done();
+  });
+
+  /**
+   * Run after all tests are done
+   */
+  afterAll(async done => {
+    /**
+     * Disconnect Mongoose from server
+     */
+    await mongoose.disconnect();
+    /**
+     * Stop the dev server
+     */
+    await mongoServer.stop();
+    done();
+  });
+
   test("saves a new appointment", async () => {
     const appointments = [
       {
